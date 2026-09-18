@@ -44,12 +44,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fb .vn{font-size:.92rem;font-weight:700;color:var(--green);margin-bottom:5px}
 .fb .df{font-size:.78rem;color:#374151;margin-bottom:6px;font-weight:500;line-height:1.28}
 .fb .ex{font-size:.69rem;color:var(--gray);font-style:italic;line-height:1.28}
-/* SOUNDS */
+/* SOUNDS & REVEAL */
 .sg{margin-bottom:16px}
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
 .chip{padding:5px 12px;border-radius:20px;font-size:.88rem;font-weight:600}
 .chip.b{background:var(--blue-l);color:var(--blue)}.chip.g{background:var(--green-l);color:var(--green)}
 .chip u{text-decoration-thickness:2px}
+.rc{background:#D1D5DB;color:transparent;cursor:pointer;user-select:none;border-radius:4px;padding:2px 8px;transition:all .2s;text-shadow:none;display:inline-block}
+.rc.on{background:transparent;color:inherit;cursor:default}
+.rc:not(.on):hover{background:#9CA3AF}
 /* STRESS TABLE */
 .stbl{width:100%;border-collapse:collapse;margin-top:9px;font-size:.86rem}
 .stbl th{background:var(--blue);color:#fff;padding:8px;text-align:left}
@@ -96,11 +99,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tile:hover{background:var(--blue-l);transform:translateY(-2px)}.tile.dragging{opacity:.35;cursor:grabbing}
 .tile.ok-p{background:var(--green-l);border-color:var(--green);color:var(--green);cursor:default}
 .tile.no-p{background:var(--red-l);border-color:var(--red);color:var(--red)}
-.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:12px}
 .zone{border-radius:var(--r);border:2px dashed #D1D5DB;min-height:100px;transition:all .18s}
 .zone.over{border-color:var(--blue);background:var(--blue-l)}
 .zh{padding:8px;font-weight:700;font-size:.9rem;text-align:center;border-radius:10px 10px 0 0;color:#fff}
-.z-go .zh{background:var(--blue)}.z-play .zh{background:var(--purple)}.z-do .zh{background:var(--green)}
+.z-go .zh{background:var(--blue)}.z-play .zh{background:var(--purple)}.z-do .zh{background:var(--green)}.z-make .zh{background:var(--amber)}
 .zb{padding:8px;display:flex;flex-wrap:wrap;gap:6px;min-height:65px}
 /* SCORE */
 .sb{border-radius:var(--r);padding:16px 20px;text-align:center;margin:16px 0}
@@ -113,7 +116,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sbi{background:rgba(255,255,255,.18);border-radius:7px;padding:9px;text-align:center}
 .sbi .lbl{font-size:.69rem;opacity:.85}.sbi .val{font-size:1.2rem;font-weight:700}
 .rl{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-size:.76rem;font-weight:600;cursor:pointer;text-decoration:underline;margin-left:5px}
-/* GRAMMAR */
+/* GRAMMAR TABS (NEW) */
+.gtbs{display:flex;gap:4px;border-bottom:2px solid #E5E7EB;margin-bottom:12px;overflow-x:auto}
+.gtb{padding:8px 12px;border:none;background:none;font-weight:600;font-size:.85rem;color:var(--gray);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.gtb:hover{color:var(--blue)}
+.gtb.on{color:var(--blue);border-bottom-color:var(--blue)}
+.gpan{display:none}.gpan.on{display:block;animation:fadeUp .3s}
+.ebtn{background:#fff;border:1px solid #D1D5DB;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;margin:2px;font-size:.9rem;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:all .15s}
+.ebtn:hover:not(:disabled){background:var(--blue-l);border-color:var(--blue)}
+.ebtn.bad{background:var(--red-l);border-color:var(--red);color:var(--red);text-decoration:line-through;cursor:default}
+.ebtn.good{background:var(--green-l);border-color:var(--green);color:var(--green);cursor:default}
+.ebtn:disabled{cursor:default}
+/* GRAMMAR PATTERNS */
 .pc{border:2px solid #E5E7EB;border-radius:var(--r);margin-bottom:10px;overflow:hidden}
 .ph{background:var(--blue-l);padding:12px 15px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:.9rem;color:var(--blue);user-select:none}
 .ph:hover{background:#BFDBFE}
@@ -137,7 +151,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* DPG TABLE */
 .dpg{width:100%;border-collapse:collapse;font-size:.86rem;margin-bottom:16px}
 .dpg th{padding:8px;font-weight:700;color:#fff}
-.dpg th.go{background:var(--blue)}.dpg th.play{background:var(--purple)}.dpg th.do{background:var(--green)}
+.dpg th.go{background:var(--blue)}.dpg th.play{background:var(--purple)}.dpg th.do{background:var(--green)}.dpg th.make{background:var(--amber)}
 .dpg td{padding:6px 8px;border:1px solid #E5E7EB;text-align:center}
 .dpg .rule{font-size:.71rem;color:var(--gray);display:block;font-weight:400}
 /* SCORES TABLE */
@@ -177,11 +191,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="nb" onclick="nav('vocab')">📚 Vocabulary</button>
   <button class="nb" onclick="nav('pron')">🔊 Pronunciation</button>
   <button class="nb" onclick="nav('wf')">🔤 Word Forms</button>
-  <button class="nb" onclick="nav('dpg')">🎮 do/play/go</button>
+  <button class="nb" onclick="nav('dpg')">🎮 do/play/go/make</button>
   <button class="nb" onclick="nav('gram')">📐 Grammar</button>
   <button class="nb" onclick="nav('prac')">✏️ Practice</button>
   <button class="nb" onclick="nav('mt1')">📝 Mock Test 1</button>
   <button class="nb" onclick="nav('mt2')">📝 Mock Test 2</button>
+  <button class="nb" onclick="nav('mt3')">📝 Mock Test 3</button>
   <button class="nb" onclick="nav('scores')">🏆 My Scores</button>
 </nav>
 <div id="main">
@@ -194,11 +209,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="hc" onclick="nav('vocab')"><div class="em">📚</div><h3>Vocabulary</h3><p>14 key words — flip cards to see definitions.</p><span class="badge">14 words · Flip cards</span></div>
     <div class="hc" onclick="nav('pron')"><div class="em">🔊</div><h3>Pronunciation</h3><p>Master /ɜː/ vs /ə/ sounds and word stress.</p><span class="badge">Mini quiz inside</span></div>
     <div class="hc" onclick="nav('wf')"><div class="em">🔤</div><h3>Word Forms</h3><p>All 9 word families — full table + fill-in practice.</p><span class="badge">Fill-in practice</span></div>
-    <div class="hc s2" onclick="nav('dpg')"><div class="em">🎮</div><h3>do / play / go</h3><p>Learn the rules then drag activities to the right column!</p><span class="badge">Drag &amp; Drop</span></div>
-    <div class="hc s2" onclick="nav('gram')"><div class="em">📐</div><h3>Grammar</h3><p>5 sentence transformation patterns + 8 practice items.</p><span class="badge">Fill-in practice</span></div>
-    <div class="hc s2" onclick="nav('prac')"><div class="em">✏️</div><h3>Mixed Practice</h3><p>10 MC + 8 word form. Scored with review links!</p><span class="badge">Scored</span></div>
+    <div class="hc s2" onclick="nav('dpg')"><div class="em">🎮</div><h3>do / play / go / make</h3><p>Learn the rules then drag activities to the right column!</p><span class="badge">Drag &amp; Drop</span></div>
+    <div class="hc s2" onclick="nav('gram')"><div class="em">📐</div><h3>Grammar Masterclass</h3><p>Present simple deep-dive + sentence transformations.</p><span class="badge">Interactive Modules</span></div>
+    <div class="hc s2" onclick="nav('prac')"><div class="em">✏️</div><h3>Mixed Practice</h3><p>15 MC + 12 word form/fill-in. Scored with links!</p><span class="badge">Scored</span></div>
     <div class="hc mt" onclick="nav('mt1')"><div class="em">📝</div><h3>Mock Test 1</h3><p>Full 28-point test. Timer + section breakdown + review links.</p><span class="badge">28 points · Timer</span></div>
     <div class="hc mt" onclick="nav('mt2')"><div class="em">📝</div><h3>Mock Test 2</h3><p>Second full test (Variant B) — different passage &amp; questions.</p><span class="badge">28 points · Timer</span></div>
+    <div class="hc mt" onclick="nav('mt3')"><div class="em">📝</div><h3>Mock Test 3</h3><p>Bonus test focusing on Present Simple &amp; extra practice.</p><span class="badge">28 points · Timer</span></div>
   </div>
 </div>
 
@@ -228,6 +244,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="card">
     <h3>📣 Word Stress — Summary Table</h3>
+    <p style="margin-bottom:10px;font-size:.86rem;color:var(--gray)"><em>Teacher tip: Click the grey boxes to reveal the answers!</em></p>
     <table class="stbl"><thead><tr><th>Word</th><th>Stress on…</th><th>How to say it</th></tr></thead><tbody id="stb"></tbody></table>
   </div>
   <div class="card">
@@ -252,7 +269,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- DO/PLAY/GO -->
 <div class="sec" id="dpg">
-  <div class="sh"><h2>🎮 do / play / go + Activities</h2><p>Review the rules &amp; examples, then drag tiles to the correct column!</p></div>
+  <div class="sh"><h2>🎮 do / play / go / make + Activities</h2><p>Review the rules &amp; examples, then drag tiles to the correct column!</p></div>
   <div class="card">
     <h3>📋 Reference Table</h3>
     <div style="overflow-x:auto"><table class="dpg">
@@ -266,7 +283,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="card">
     <h3>🕹️ Drag &amp; Drop Game</h3>
-    <p style="margin-bottom:10px;font-size:.86rem;color:var(--gray)">Drag each tile to the correct column: GO / PLAY / DO</p>
+    <p style="margin-bottom:10px;font-size:.86rem;color:var(--gray)">Drag each tile to the correct column: GO / PLAY / DO / MAKE</p>
     <div class="src-area" id="dndSrc" ondragover="ev.preventDefault&&ev.preventDefault()" ondrop="dropBack(event)"></div>
     <div class="zones">
       <div class="zone z-go" id="zgo" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'go')"><div class="zh">🔵 GO</div><div class="zb" id="zgob"></div></div>
@@ -283,10 +300,76 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- GRAMMAR -->
 <div class="sec" id="gram">
-  <div class="sh"><h2>📐 Grammar Patterns</h2><p>Click each pattern to expand, then practise sentence transformation below.</p></div>
-  <div id="gpats"></div>
+  <div class="sh"><h2>📐 Grammar Masterclass</h2><p>Student-centered learning guided by Bloom's Taxonomy principles.</p></div>
+
+  <!-- PRESENT SIMPLE (PART A) -->
+  <div class="card">
+    <h3>Part A: Present Simple (Deep Dive)</h3>
+    <div class="gtbs">
+      <button class="gtb on" onclick="gTab('ps_und', this)">1. Discover &amp; Understand</button>
+      <button class="gtb" onclick="gTab('ps_app', this)">2. Apply</button>
+      <button class="gtb" onclick="gTab('ps_ana', this)">3. Analyze</button>
+      <button class="gtb" onclick="gTab('ps_cre', this)">4. Create</button>
+    </div>
+
+    <!-- 1. Understand -->
+    <div id="ps_und" class="gpan on">
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 1. Usage (When do we use it?)</h4>
+      <ul style="margin-left:16px;margin-bottom:14px;font-size:.88rem;color:#374151">
+        <li style="margin-bottom:4px"><strong>Habits & Routines:</strong> <em>I play football every day.</em></li>
+        <li style="margin-bottom:4px"><strong>General Truths & Facts:</strong> <em>The sun rises in the east.</em></li>
+        <li><strong>Timetables & Schedules:</strong> <em>The train leaves at 8:00 AM tomorrow.</em></li>
+      </ul>
+
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 2. Structure</h4>
+      <div style="overflow-x:auto"><table class="wft" style="margin-bottom:14px;text-align:left">
+        <tr><th style="background:var(--green);width:110px">(+) Affirmative</th><td>I/You/We/They <strong>play</strong><br>He/She/It <strong>plays</strong></td></tr>
+        <tr><th style="background:var(--red)">(-) Negative</th><td>I/You/We/They <strong>don't play</strong><br>He/She/It <strong>doesn't play</strong></td></tr>
+        <tr><th style="background:var(--amber);color:#92400E">(?) Question</th><td><strong>Do</strong> I/you/we/they <strong>play</strong>?<br><strong>Does</strong> he/she/it <strong>play</strong>?</td></tr>
+      </table></div>
+
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 3. Spelling Rules (for He/She/It)</h4>
+      <div style="overflow-x:auto"><table class="wft" style="margin-bottom:14px;text-align:left">
+        <tr><th style="background:var(--purple);width:220px">Rule</th><th style="background:var(--purple)">Examples</th></tr>
+        <tr><td>Most verbs: add <strong>-s</strong></td><td>work → works, read → reads</td></tr>
+        <tr><td>Ends in <strong>-o, -sh, -ch, -x, -ss</strong>: add <strong>-es</strong></td><td>go → goes, wash → washes, watch → watches</td></tr>
+        <tr><td>Consonant + <strong>-y</strong>: change to <strong>-ies</strong></td><td>study → studies, fly → flies</td></tr>
+      </table></div>
+
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 4. Time Signals (Adverbs of Frequency)</h4>
+      <p style="font-size:.86rem;margin-bottom:4px;color:#374151"><strong>always, usually, often, sometimes, rarely, never</strong></p>
+      <p style="font-size:.8rem;color:var(--gray)"><em>Note: They come BEFORE normal verbs (He always plays) but AFTER the 'be' verb (He is always happy).</em></p>
+    </div>
+
+    <!-- 2. Apply -->
+    <div id="ps_app" class="gpan">
+      <p style="margin-bottom:12px;font-size:.86rem;color:var(--gray)">Apply the rules to conjugate the verbs correctly.</p>
+      <div id="ps_app_c"></div>
+      <button class="btn bp" onclick="checkPSA()" style="margin-top:9px">✅ Check Answers</button>
+      <div id="psasc" style="margin-top:11px"></div>
+    </div>
+
+    <!-- 3. Analyze -->
+    <div id="ps_ana" class="gpan">
+      <p style="margin-bottom:12px;font-size:.86rem;color:var(--gray)">Error Correction: Analyze the sentences below and <strong>click the single incorrect word</strong>.</p>
+      <div id="ps_ana_c"></div>
+    </div>
+
+    <!-- 4. Create -->
+    <div id="ps_cre" class="gpan">
+       <h4 style="margin-bottom:8px;color:var(--blue)">🌱 Produce &amp; Create!</h4>
+       <p style="font-size:.86rem;margin-bottom:10px;color:var(--gray)">Write 3 true sentences using the Present Simple about your family's hobbies. Include: 1 affirmative (+), 1 negative (-), and 1 question (?).</p>
+       <textarea style="width:100%;height:100px;padding:10px;border:2px solid #D1D5DB;border-radius:6px;font-family:inherit;font-size:.9rem" placeholder="E.g., My brother loves playing football. We don't collect stamps. Do you like reading?"></textarea>
+       <button class="btn bg" style="margin-top:10px" onclick="const t=this.previousElementSibling.value.trim();if(!t){alert('Please write your sentences first!');return;}window.location.href='mailto:levandu1101@gmail.com?subject=Grade%207%20-%20Unit%201%20Grammar%20Sentences&body=Hello%20Teacher%2C%0A%0AHere%20are%20my%20Present%20Simple%20sentences%3A%0A%0A'+encodeURIComponent(t)+'%0A%0AStudent%20Name%3A%20_________________';this.textContent='✅ Email App Opened!';this.style.background='var(--green)';">📨 Email Teacher</button>
+    </div>
+  </div>
+
+  <!-- PATTERNS (PART B) -->
   <div class="card" style="margin-top:16px">
-    <h3>✏️ Sentence Transformation Practice (8 items)</h3>
+    <h3>Part B: Sentence Structures (Unit 1)</h3>
+    <p style="margin-bottom:12px;font-size:.86rem;color:var(--gray)">Gerunds, possessives, and other key transformation patterns.</p>
+    <div id="gpats"></div>
+    <h4 style="margin:16px 0 10px;font-size:.92rem;color:var(--blue)">✏️ Sentence Transformation Practice</h4>
     <p style="margin-bottom:12px;font-size:.86rem;color:var(--gray)">Complete the given beginning without changing the meaning.</p>
     <div id="gprac"></div>
     <button class="btn bp" onclick="checkGP()" style="margin-top:9px">✅ Check All</button>
@@ -296,15 +379,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- PRACTICE -->
 <div class="sec" id="prac">
-  <div class="sh"><h2>✏️ Mixed Practice</h2><p>Phonetics, vocabulary and word formation — scored with review links!</p></div>
+  <div class="sh"><h2>✏️ Mixed Practice</h2><p>Phonetics, vocabulary, grammar and word formation — scored with review links!</p></div>
   <div class="card">
-    <h3>🎯 Part 1: Phonetics &amp; Vocabulary (10 questions)</h3>
+    <h3>🎯 Part 1: Phonetics, Vocab &amp; Grammar (15 questions)</h3>
     <div id="pracq"></div>
     <button class="btn bp" onclick="checkPrac()" style="margin-top:9px">✅ Check Part 1</button>
     <div id="pracsc1" style="margin-top:11px"></div>
   </div>
   <div class="card">
-    <h3>🔤 Part 2: Word Formation (8 questions)</h3>
+    <h3>🔤 Part 2: Word Formation &amp; Fill-ins (12 questions)</h3>
     <div id="pracwf"></div>
     <button class="btn bp" onclick="checkPracWF()" style="margin-top:9px">✅ Check Part 2</button>
     <div id="pracsc2" style="margin-top:11px"></div>
@@ -327,6 +410,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="mt2c"></div>
   <button class="btn ba" id="mt2sb" onclick="submitMT(2)" style="margin:16px 0;padding:11px 26px;font-size:.92rem">📨 Submit Mock Test 2</button>
   <div id="mt2res"></div>
+</div>
+
+<!-- MOCK TEST 3 -->
+<div class="sec" id="mt3">
+  <div class="sh"><h2>📝 Mock Test 3 (Bonus)</h2><p>Answer all sections, then click <strong>Submit</strong> for your score and review.</p></div>
+  <div id="mt3tmr" class="tmr">⏱️ 00:00</div>
+  <div id="mt3c"></div>
+  <button class="btn ba" id="mt3sb" onclick="submitMT(3)" style="margin:16px 0;padding:11px 26px;font-size:.92rem">📨 Submit Mock Test 3</button>
+  <div id="mt3res"></div>
 </div>
 
 <!-- SCORES -->
@@ -379,14 +471,16 @@ const WFD=[
 const DPG={
   go:['jogging','cycling','swimming','hiking','camping','fishing'],
   play:['chess','badminton','football','the piano','the guitar','video games'],
-  do:['gardening','yoga','origami','craft','model making','homework']
+  do:['gardening','yoga','origami','gymnastics','judo','homework'],
+  make:['models','crafts','a dollhouse','vlogs','paper boats','kites']
 };
+// Removed Pattern 6 from GPD because it's deeply covered in Part A
 const GPD=[
   {title:"Pattern 1 — Possessives (belong to → 's)",rule:"Subject + belongs to + Person → Subject + is/are + Person's",rows:[['These stamps belong to Nam.','These stamps are Nam\'s.'],['This coin belongs to Lan.','This coin is Lan\'s.']],warn:null},
   {title:'Pattern 2 — Gerunds as Subjects (Verb+ing)',rule:'Verb+ing + is/are + adjective/noun phrase',rows:[['Collecting insects is unusual.','Collecting = subject'],['Gardening is relaxing.','Gardening = subject'],['Making models takes patience.','Making = subject']],warn:null},
   {title:'Pattern 3 — "It is + adj + to-infinitive"',rule:'Verb+ing + is + adj  ↔  It is + adj + to + base verb',rows:[['Collecting insects is unusual.','It is unusual to collect insects.'],['Gardening is relaxing.','It is relaxing to garden.'],['Making models is enjoyable.','It is enjoyable to make models.']],warn:null},
   {title:'Pattern 4 — enjoy / prefer + Gerund',rule:"prefer to + verb → enjoy + verb+ing  |  goes -ing → 's habit is -ing",rows:[["Mai prefers to make models.","Mai enjoys making models."],["Long goes jogging each morning.","Long's habit is jogging each morning."]],warn:'⚠️ enjoy is ALWAYS followed by verb+ing — NOT "to + verb"!'},
-  {title:'Pattern 5 — Preposition + Gerund (interested in / keen on)',rule:'After a preposition → ALWAYS use verb+ing',rows:[['My favourite hobby is gardening.','I am interested in gardening.'],['Her hobby is collecting coins.','She is keen on collecting coins.']],warn:"⚠️ 'keen to collect' is WRONG. Always 'keen ON collecting'!"},
+  {title:'Pattern 5 — Preposition + Gerund (interested in / keen on)',rule:'After a preposition → ALWAYS use verb+ing',rows:[['My favourite hobby is gardening.','I am interested in gardening.'],['Her hobby is collecting coins.','She is keen on collecting coins.']],warn:"⚠️ 'keen to collect' is WRONG. Always 'keen ON collecting'!"}
 ];
 const GPRAC=[
   {q:"These stamps belong to Nam. → These stamps are",ac:["nam's","nam's stamps"],h:"Nam's"},
@@ -398,6 +492,23 @@ const GPRAC=[
   {q:"Long goes jogging each morning. → Long's habit is",ac:['jogging each morning','jogging every morning','jogging'],h:'jogging each morning'},
   {q:"Her hobby is collecting coins. → She is keen",ac:['on collecting coins'],h:'on collecting coins'},
 ];
+
+// PRESENT SIMPLE DATA (PART A)
+const PS_APPLY = [
+  {q:"My mother (fry) ____ eggs every morning.", a:"fries", ac:['fries']},
+  {q:"They (not like) ____ collecting dolls.", a:"don't like", ac:['don\'t like', 'do not like']},
+  {q:"____ your sister play the piano? (Do/Does)", a:"Does", ac:['does']},
+  {q:"The train (leave) ____ at 8:00 am.", a:"leaves", ac:['leaves']},
+  {q:"He usually (watch) ____ TV after school.", a:"watches", ac:['watches']}
+];
+const PS_ANALYZE = [
+  {s:["She","don't","like","collecting","dolls."], bad:1, fix:"doesn't"},
+  {s:["My","father","often","go","fishing","on","Sundays."], bad:3, fix:"goes"},
+  {s:["Are","you","play","badminton","everyday?"], bad:0, fix:"Do"},
+  {s:["He","always","study","hard","for","exams."], bad:2, fix:"studies"},
+  {s:["Do","Mai","and","Lan","likes","yoga?"], bad:4, fix:"like"}
+];
+
 const PRACQ=[
   {t:'Choose the word whose underlined part is pronounced differently:<br>A. <u>ear</u>n &ensp; B. l<u>ear</u>n &ensp; C. h<u>ear</u>t &ensp; D. <u>ear</u>th',o:['A','B','C','D'],a:2,exp:'C — "heart" = /ɑː/; earn/learn/earth = /ɜː/',rev:'pron'},
   {t:'Choose the word with a different stress pattern:<br>A. hobby &ensp; B. garden &ensp; C. reduce &ensp; D. model',o:['A','B','C','D'],a:2,exp:'C — "reduce" stress on 2nd syllable; others on 1st',rev:'pron'},
@@ -409,6 +520,11 @@ const PRACQ=[
   {t:'Choose the word whose underlined part is pronounced differently:<br>A. b<u>ir</u>d &ensp; B. g<u>ir</u>l &ensp; C. f<u>ir</u>st &ensp; D. sp<u>ir</u>it',o:['A','B','C','D'],a:3,exp:'D — "spirit" = /ɪ/; bird/girl/first = /ɜː/',rev:'pron'},
   {t:'Choose the word with a different stress pattern:<br>A. popular &ensp; B. unusual &ensp; C. cardboard &ensp; D. patient',o:['A','B','C','D'],a:1,exp:'B — "unusual" stress on 2nd syllable; others on 1st',rev:'pron'},
   {t:'Stamp collecting is _____ among children in many countries.',o:['responsible','creative','popular','beneficial'],a:2,exp:'C — popular',rev:'vocab'},
+  {t:'Janet _____ to be a singer when she grows up.',o:['want','wants','wanting','is want'],a:1,exp:'B — "wants" (Present Simple for She/It/Janet)',rev:'gram'},
+  {t:'Plants _____ water and sunlight for making their food.',o:['need','needs','needing','are need'],a:0,exp:'A — "need" (Present Simple for plural noun "Plants")',rev:'gram'},
+  {t:'My grandfather _____ his pet dog very much.',o:['adore','adores','adoring','is adore'],a:1,exp:'B — "adores" (Present Simple for He/She/It)',rev:'gram'},
+  {t:'They usually _____ basketball everyday after school.',o:['play','plays','playing','are play'],a:0,exp:'A — "play" (Present Simple for They)',rev:'gram'},
+  {t:'The flight from Ho Chi Minh _____ at 10:30 tomorrow.',o:['arrive','arrives','arriving','is arrive'],a:1,exp:'B — "arrives" (Present Simple for timetables/schedules)',rev:'gram'},
 ];
 const PRACWF=[
   {q:'Gardening is highly _____ for both body and mind. (BENEFIT)',a:'beneficial',ac:['beneficial']},
@@ -419,6 +535,10 @@ const PRACWF=[
   {q:'She showed great _____ in her model design. (CREATE)',a:'creativity',ac:['creativity']},
   {q:'We had an _____ afternoon at the hobby club. (ENJOY)',a:'enjoyable',ac:['enjoyable']},
   {q:'This hobby has grown in _____ among teenagers. (POPULAR)',a:'popularity',ac:['popularity']},
+  {q:'I (not study) _____ on Fridays.',a:"don't study",ac:['do not study',"don't study"]},
+  {q:'My mother (fry) _____ eggs for breakfast every morning.',a:'fries',ac:['fries']},
+  {q:'The bank (close) _____ at four o\'clock.',a:'closes',ac:['closes']},
+  {q:'He (have) _____ a new haircut today.',a:'has',ac:['has']},
 ];
 const MT1={
   passage:`Mai is a 12-year-old girl who loves making models. She started this hobby <strong>two years ago</strong>. For her first model, she used <strong>an old shoe box</strong> and some cardboard. Now she has a collection of twelve models. She practises every <strong>Saturday afternoon</strong> in her bedroom.<br><br>Model making takes a lot of patience, but Mai is very patient. She <strong>never sells</strong> her models because each one is valuable to her. Her favourite model is a miniature school that she made last summer. She keeps it on <strong>a shelf</strong> above her desk.`,
@@ -510,11 +630,56 @@ const MT2={
     {q:"Making models is enjoyable. → It is",a:'enjoyable to make models',ac:['enjoyable to make models']},
   ]
 };
+const MT3={
+  passage:`My friend Nam has a very unusual hobby. He collects glass bottles. He started this hobby <strong>five years ago</strong>. After his family drinks from a bottle, he washes it and paints beautiful pictures on it. He works on his hobby every <strong>Friday evening</strong>.<br><br>He has a collection of over thirty bottles. It teaches him <strong>patience</strong> and creativity. Nam <strong>rarely throws away</strong> glass bottles, which also helps protect the environment. His favourite bottle is a blue one that he painted a ship on.`,
+  dE:`<div class="dh">share <em>verb</em> /ʃeə(r)/</div><ul style="margin-left:16px;line-height:2.1"><li>I usually <strong>share a room</strong> with my brother.</li><li>Can you <strong>share your toys</strong> with your friends?</li><li>We <strong>share a hobby</strong> of collecting coins.</li><li>I <strong>share my sandwich</strong> with my classmate.</li></ul>`,
+  dP:['share a room','share your toys','share a hobby','share my sandwich'],
+  I:[
+    {t:'Choose the word whose <u>underlined</u> part is pronounced <strong>differently</strong>:',o:['c<u>o</u>llect','c<u>o</u>ntain','c<u>o</u>mmon','c<u>o</u>mpare'],a:2,exp:'C — "common" = /ɒ/; others = /ə/',rev:'pron'},
+    {t:'Choose the word whose <u>underlined</u> part is pronounced <strong>differently</strong>:',o:['b<u>ir</u>d','sh<u>ir</u>t','f<u>ir</u>e','g<u>ir</u>l'],a:2,exp:'C — "fire" = /aɪə/; others = /ɜː/',rev:'pron'},
+    {t:'Which word has a <strong>different stress pattern</strong>?',o:['hobby','model','insect','collect'],a:3,exp:'D — "collect" (2nd); others (1st)',rev:'pron'},
+    {t:'Which word has a <strong>different stress pattern</strong>?',o:['patient','unusual','popular','valuable'],a:1,exp:'B — "unusual" (2nd); others (1st)',rev:'pron'},
+  ],
+  II:[
+    {t:'Martin _____ for a walk in the morning.',o:['go','goes','going','is go'],a:1,exp:'B — goes',rev:'gram'},
+    {t:'Plants _____ water and sunlight for making their food.',o:['needs','needing','need','is need'],a:2,exp:'C — need',rev:'gram'},
+    {t:'My grandfather _____ his pet dog.',o:['adore','adores','adoring','is adore'],a:1,exp:'B — adores',rev:'gram'},
+    {t:'Gardening belongs to the group of _____ things.',o:['do','doing','make','making'],a:1,exp:'B — doing',rev:'gram'},
+    {t:'Tom enjoys _____ basketball everyday after school.',o:['play','plays','playing','to play'],a:2,exp:'C — playing',rev:'gram'},
+  ],
+  III:[
+    {q:'He (have) _____ a new haircut today.',a:'has',ac:['has']},
+    {q:'My best friend (write) _____ to me every week.',a:'writes',ac:['writes']},
+    {q:"The bank (close) _____ at four o'clock.",a:'closes',ac:['closes']},
+    {q:'She showed great _____ in building her dollhouse. (CREATE)',a:'creativity',ac:['creativity']},
+    {q:'My sister is an experienced _____. (GARDEN)',a:'gardener',ac:['gardener']},
+    {q:'We had an _____ trip to the museum. (ENJOY)',a:'enjoyable',ac:['enjoyable']},
+  ],
+  TF:[
+    {s:'Nam started his hobby 5 years ago.',a:'true',exp:'True — "He started this hobby five years ago."'},
+    {s:'He works on his hobby every Sunday evening.',a:'false',exp:'False — "every Friday evening."'},
+    {s:'He has fewer than thirty bottles.',a:'false',exp:'False — "over thirty bottles."'},
+    {s:'He rarely throws away glass bottles.',a:'true',exp:'True — "Nam rarely throws away glass bottles"'},
+  ],
+  MC:[
+    {t:'What does Nam do after his family drinks from a bottle?',o:['He throws it away','He paints pictures on it','He recycles it','He sells it'],a:1,exp:'B — "he washes it and paints beautiful pictures on it."'},
+    {t:'What does this hobby teach him?',o:['How to swim','Patience and creativity','How to cook','Math and Science'],a:1,exp:'B — "It teaches him patience and creativity."'},
+  ],
+  Va:['share a hobby','share your toys'],
+  Vq:['Linh and I _____ of collecting coins.','You should _____ with your little brother.'],
+  VI:[
+    {q:"The book belongs to Lan. → The book is",a:"Lan's",ac:["lan's","lan's book"]},
+    {q:"Collecting coins is unusual. → It is",a:'unusual to collect coins',ac:['unusual to collect coins']},
+    {q:"My father prefers to read books. → My father enjoys",a:'reading books',ac:['reading books']},
+    {q:"He goes jogging every morning. → His habit is",a:'jogging every morning',ac:['jogging every morning','jogging']},
+    {q:"She doesn't like to cook. → She is not interested",a:'in cooking',ac:['in cooking']},
+  ]
+};
 // ============================================================
 // STATE
 // ============================================================
-const SC={pron:{c:0,t:5,done:false},gram:{c:0,t:8,done:false},prac:{c:0,t:10,done:false},pracwf:{c:0,t:8,done:false},mt1:{c:0,t:28,done:false},mt2:{c:0,t:28,done:false}};
-const MT={1:{I:{},II:{},MC:{},TF:{},V:{},VI:{},tmr:null,secs:0,started:false},2:{I:{},II:{},MC:{},TF:{},V:{},VI:{},tmr:null,secs:0,started:false}};
+const SC={pron:{c:0,t:5,done:false},psa:{c:0,t:5,done:false},psana:{c:0,t:5,done:false},gram:{c:0,t:8,done:false},prac:{c:0,t:15,done:false},pracwf:{c:0,t:12,done:false},mt1:{c:0,t:28,done:false},mt2:{c:0,t:28,done:false},mt3:{c:0,t:28,done:false}};
+const MT={1:{I:{},II:{},MC:{},TF:{},V:{},VI:{},tmr:null,secs:0,started:false},2:{I:{},II:{},MC:{},TF:{},V:{},VI:{},tmr:null,secs:0,started:false},3:{I:{},II:{},MC:{},TF:{},V:{},VI:{},tmr:null,secs:0,started:false}};
 const SEL={pq:{},prac:{}};
 let teacher=false;
 // ============================================================
@@ -526,7 +691,7 @@ function nav(id){
   document.getElementById(id).classList.add('on');
   const b=document.querySelector(`.nb[onclick="nav('${id}')"]`);if(b)b.classList.add('on');
   window.scrollTo(0,0);
-  const n=id==='mt1'?1:id==='mt2'?2:0;
+  const n=id==='mt1'?1:id==='mt2'?2:id==='mt3'?3:0;
   if(n&&!MT[n].started)startTmr(n);
   if(id==='scores')renderSC();
 }
@@ -566,7 +731,7 @@ function buildPron(){
   const mk=(w,cls)=>{const i=w.w.indexOf(w.u);return`<span class="chip ${cls}">${w.w.slice(0,i)}<u>${w.u}</u>${w.w.slice(i+w.u.length)}</span>`;};
   document.getElementById('s1c').innerHTML=S1.map(w=>mk(w,'b')).join('');
   document.getElementById('s2c').innerHTML=S2.map(w=>mk(w,'g')).join('');
-  document.getElementById('stb').innerHTML=STD.map(d=>`<tr><td><strong>${d.w}</strong></td><td>${d.s}</td><td>${d.sh}</td></tr>`).join('');
+  document.getElementById('stb').innerHTML=STD.map(d=>`<tr><td><strong>${d.w}</strong></td><td><span class="rc" onclick="this.classList.add('on')">${d.s}</span></td><td><span class="rc" onclick="this.classList.add('on')">${d.sh}</span></td></tr>`).join('');
   const pqs=[
     {t:'Choose the word whose underlined part is pronounced differently:',o:['<u>ear</u>n','l<u>ear</u>n','h<u>ear</u>t','<u>ear</u>th'],a:2,exp:'C — "heart" = /ɑː/; earn/learn/earth = /ɜː/'},
     {t:'Choose the word whose underlined part is pronounced differently:',o:['b<u>ir</u>d','g<u>ir</u>l','f<u>ir</u>st','sp<u>ir</u>it'],a:3,exp:'D — "spirit" = /ɪ/; bird/girl/first = /ɜː/'},
@@ -638,15 +803,15 @@ function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*
 // DO/PLAY/GO
 // ============================================================
 function buildDPG(){
-  const max=Math.max(DPG.go.length,DPG.play.length,DPG.do.length);let r='';
+  const max=Math.max(DPG.go.length,DPG.play.length,DPG.do.length,DPG.make.length);let r='';
   for(let i=0;i<max;i++){r+=`<tr><td>${DPG.go[i]?'🔵 go <strong>'+DPG.go[i]+'</strong>':''}</td><td>${DPG.play[i]?'🟣 play <strong>'+DPG.play[i]+'</strong>':''}</td><td>${DPG.do[i]?'🟢 do <strong>'+DPG.do[i]+'</strong>':''}</td></tr>`;}
   document.getElementById('dpgb').innerHTML=r;
   initDnD();
 }
-function getcat(a){return DPG.go.includes(a)?'go':DPG.play.includes(a)?'play':'do';}
+function getcat(a){return DPG.go.includes(a)?'go':DPG.play.includes(a)?'play':DPG.make.includes(a)?'make':'do';}
 function initDnD(){
-  ['go','play','do'].forEach(z=>document.getElementById(`z${z}b`).innerHTML='');
-  document.getElementById('dndSrc').innerHTML=shuf([...DPG.go,...DPG.play,...DPG.do]).map(a=>`<div class="tile" draggable="true" data-act="${a}" data-cat="${getcat(a)}" ondragstart="dS(event)" ondragend="dE(event)">${a}</div>`).join('');
+  ['go','play','do','make'].forEach(z=>document.getElementById(`z${z}b`).innerHTML='');
+  document.getElementById('dndSrc').innerHTML=shuf([...DPG.go,...DPG.play,...DPG.do,...DPG.make]).map(a=>`<div class="tile" draggable="true" data-act="${a}" data-cat="${getcat(a)}" ondragstart="dS(event)" ondragend="dE(event)">${a}</div>`).join('');
   document.getElementById('dndres').innerHTML='';
 }
 function dS(e){e.target.classList.add('dragging');e.dataTransfer.setData('text',e.target.dataset.act);}
@@ -668,19 +833,39 @@ function dropBack(e){
 }
 function checkDnD(){
   let c=0,t=0;
-  ['go','play','do'].forEach(z=>{
+  ['go','play','do','make'].forEach(z=>{
     document.querySelectorAll(`#z${z}b .tile`).forEach(tile=>{
       t++;tile.draggable=false;
       tile.dataset.cat===z?(tile.classList.add('ok-p'),c++):(tile.classList.add('no-p'),tile.title='Should be: '+tile.dataset.cat);
     });
   });
-  document.getElementById('dndres').innerHTML=sbx(c,t,'do/play/go Game');
+  document.getElementById('dndres').innerHTML=sbx(c,t,'do/play/go/make Game');
 }
 function resetDnD(){initDnD();}
 // ============================================================
-// GRAMMAR
+// GRAMMAR (NEW MASTERY)
 // ============================================================
+function gTab(id, btn){
+  document.querySelectorAll('.gpan').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.gtb').forEach(e=>e.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
 function buildGram(){
+  // BUILD PART A: APPLY
+  document.getElementById('ps_app_c').innerHTML = PS_APPLY.map((d,i)=>`
+    <div class="fq" style="margin-bottom:12px"><div class="qt" style="font-size:.9rem;margin-bottom:6px">${i+1}. ${d.q.replace('____', `<input type="text" class="finp" style="width:130px;padding:4px 8px;font-size:.85rem;margin:0 4px" id="psai${i}">`)}</div><div id="psafb${i}"></div></div>
+  `).join('');
+
+  // BUILD PART A: ANALYZE
+  document.getElementById('ps_ana_c').innerHTML = PS_ANALYZE.map((d,i)=>`
+    <div class="fq" style="margin-bottom:12px;background:var(--gray-l);padding:10px;border-radius:8px">
+    <div style="display:flex;flex-wrap:wrap;gap:2px">${d.s.map((w,j)=>`<button class="ebtn" onclick="chkErr(${i},${j},this)">${w}</button>`).join('')}</div>
+    <div id="psnfb${i}" style="margin-top:6px;min-height:22px"></div>
+    </div>
+  `).join('');
+
+  // BUILD PART B: PATTERNS
   document.getElementById('gpats').innerHTML=GPD.map((p,i)=>`
     <div class="pc"><div class="ph" onclick="togP(${i})"><span>${p.title}</span><span id="pa${i}">▼</span></div>
     <div class="pb" id="pb${i}">
@@ -694,6 +879,41 @@ function buildGram(){
       <div class="fiw"><input type="text" class="finp" id="gi${i}" placeholder="Type your answer..."><div id="gfb${i}"></div></div>
     </div>`).join('');
 }
+
+function checkPSA(){
+  let c=0;
+  PS_APPLY.forEach((d,i)=>{
+    const inp=document.getElementById(`psai${i}`);const fb=document.getElementById(`psafb${i}`);
+    const val=inp.value.toLowerCase().trim();
+    const ok=d.ac.includes(val);
+    inp.disabled=true;
+    if(ok){inp.classList.add('ok');fb.innerHTML=`<span class="fb2 ok">✅ Correct!</span>`;c++;}
+    else{inp.classList.add('no');fb.innerHTML=`<span class="fb2 no">❌ Answer: <strong>${d.a}</strong></span>`;}
+  });
+  SC.psa={c,t:5,done:true};
+  document.getElementById('psasc').innerHTML=sbx(c,5,'Level 3: Apply Practice');
+  upBadge();
+}
+
+function chkErr(i, j, btn){
+   const d = PS_ANALYZE[i];
+   const fb = document.getElementById(`psnfb${i}`);
+   if(j === d.bad){
+      btn.classList.add('bad');
+      document.querySelectorAll(`#ps_ana_c .fq:nth-child(${i+1}) .ebtn`).forEach(b=>b.disabled=true);
+      fb.innerHTML = `<span class="fb2 ok">✅ Correct! It should be <strong>${d.fix}</strong>.</span>`;
+      if(!SC.psana.done) {
+        SC.psana.c++;
+        if(SC.psana.c === 5) SC.psana.done = true;
+        upBadge();
+      }
+   } else {
+      btn.classList.add('bad');
+      setTimeout(()=>{btn.classList.remove('bad');}, 600);
+      fb.innerHTML = `<span class="fb2 no">❌ Not that word. Try again!</span>`;
+   }
+}
+
 function togP(i){
   const b=document.getElementById(`pb${i}`);const a=document.getElementById(`pa${i}`);
   b.classList.toggle('open');a.textContent=b.classList.contains('open')?'▲':'▼';
@@ -708,7 +928,7 @@ function checkGP(){
     ok?(inp.classList.add('ok'),fb.innerHTML=`<span class="fb2 ok">✅ Correct!</span>`,c++):(inp.classList.add('no'),fb.innerHTML=`<span class="fb2 no">❌ Answer: <strong>${d.h}</strong></span>`);
   });
   SC.gram={c,t:8,done:true};
-  document.getElementById('gpsc').innerHTML=sbx(c,8,'Grammar Practice');
+  document.getElementById('gpsc').innerHTML=sbx(c,8,'Grammar Patterns Practice');
   upBadge();
 }
 // ============================================================
@@ -745,8 +965,8 @@ function checkPrac(){
     exp.innerHTML=`💡 ${q.exp} <span class="rl" onclick="nav('${q.rev}')">📚 Review</span>`;
     if(sel===q.a)c++;
   });
-  SC.prac={c,t:10,done:true};
-  document.getElementById('pracsc1').innerHTML=sbx(c,10,'Part 1: Phonetics & Vocabulary');
+  SC.prac={c,t:15,done:true};
+  document.getElementById('pracsc1').innerHTML=sbx(c,15,'Part 1: Phonetics & Vocabulary');
   upBadge();
 }
 function checkPracWF(){
@@ -755,10 +975,10 @@ function checkPracWF(){
     const inp=document.getElementById(`pwi${i}`);const fb=document.getElementById(`pwfb${i}`);
     const val=inp.value.toLowerCase().trim();const ok=d.ac.includes(val);
     inp.disabled=true;
-    ok?(inp.classList.add('ok'),fb.innerHTML=`<span class="fb2 ok">✅</span>`,c++):(inp.classList.add('no'),fb.innerHTML=`<span class="fb2 no">❌ <strong>${d.a}</strong> <span class="rl" onclick="nav('wf')">📚 Word Forms</span></span>`);
+    ok?(inp.classList.add('ok'),fb.innerHTML=`<span class="fb2 ok">✅</span>`,c++):(inp.classList.add('no'),fb.innerHTML=`<span class="fb2 no">❌ <strong>${d.a}</strong> <span class="rl" onclick="nav('wf')">📚 Review</span></span>`);
   });
-  SC.pracwf={c,t:8,done:true};
-  document.getElementById('pracsc2').innerHTML=sbx(c,8,'Part 2: Word Formation');
+  SC.pracwf={c,t:12,done:true};
+  document.getElementById('pracsc2').innerHTML=sbx(c,12,'Part 2: Word Formation');
   upBadge();
 }
 // ============================================================
@@ -819,7 +1039,7 @@ function selPhr(n,qi,phrase,btn){
 // SUBMIT
 // ============================================================
 function submitMT(n){
-  const D=n===1?MT1:MT2;let tot=0;const bd={I:0,II:0,III:0,IV:0,V:0,VI:0};
+  const D=n===1?MT1:n===2?MT2:MT3;let tot=0;const bd={I:0,II:0,III:0,IV:0,V:0,VI:0};
   stopTmr(n);
   // I
   D.I.forEach((q,i)=>{
@@ -833,7 +1053,7 @@ function submitMT(n){
     const sel=MT[n].II[i];revMC(`mt${n}II`,i,q.a,sel);
     const fb=document.getElementById(`mt${n}IIfb${i}`);fb.style.display='block';
     if(sel===q.a){fb.innerHTML=`<span class="fb2 ok">✅ ${q.exp}</span>`;tot++;bd.II++;}
-    else fb.innerHTML=`<span class="fb2 no">❌ ${q.exp} <span class="rl" onclick="nav('vocab')">📚 Vocabulary</span></span>`;
+    else fb.innerHTML=`<span class="fb2 no">❌ ${q.exp} <span class="rl" onclick="nav('vocab')">📚 Review</span></span>`;
   });
   // III
   D.III.forEach((q,i)=>{
@@ -841,13 +1061,13 @@ function submitMT(n){
     const val=(inp.value||'').toLowerCase().trim();const ok=q.ac.includes(val);
     inp.disabled=true;
     if(ok){inp.classList.add('ok');fb.innerHTML=`<span class="fb2 ok">✅ Correct!</span>`;tot++;bd.III++;}
-    else{inp.classList.add('no');fb.innerHTML=`<span class="fb2 no">❌ <strong>${q.a}</strong> <span class="rl" onclick="nav('wf')">📚 Word Forms</span></span>`;}
+    else{inp.classList.add('no');fb.innerHTML=`<span class="fb2 no">❌ <strong>${q.a}</strong> <span class="rl" onclick="nav('wf')">📚 Review</span></span>`;}
   });
   // TF
   D.TF.forEach((q,i)=>{
     const sel=MT[n].TF[i];
     const tB=document.getElementById(`mt${n}TFT${i}`);const fB=document.getElementById(`mt${n}TFF${i}`);
-    [tB,fB].forEach(b=>b.disabled=true);(q.a==='true'?tB:fB).classList.add('ok');
+    [tB,fB].forEach(b=>b.disabled=true);if(q.a==='true'){tB.classList.add('ok');}else{fB.classList.add('ok');}
     const fb=document.getElementById(`mt${n}TFfb${i}`);fb.style.display='block';
     if(sel===q.a){fb.innerHTML=`<span class="fb2 ok">✅ ${q.exp}</span>`;tot++;bd.IV++;}
     else{if(sel)(sel==='true'?tB:fB).classList.add('no');fb.innerHTML=`<span class="fb2 no">❌ ${q.exp}</span>`;}
@@ -886,6 +1106,18 @@ function submitMT(n){
   const pct=Math.round(tot/28*100);
   const msg=pct>=90?'🌟 Outstanding!':pct>=75?'⭐ Great job!':pct>=55?'👍 Good effort!':'📚 Keep practising!';
   const cl=pct>=75?'sb-green':pct>=55?'sb-amber':'sb-red';
+  
+  let weak = [];
+  if(bd.I < 3) weak.push('- Phonetics (/ɜː/ vs /ə/ and word stress)');
+  if(bd.II < 4) weak.push('- Vocabulary (Unit 1 Keywords)');
+  if(bd.III < 4) weak.push('- Word Formation');
+  if(bd.IV < 4) weak.push('- Reading Comprehension');
+  if(bd.V < 2) weak.push('- Dictionary Reading');
+  if(bd.VI < 3) weak.push('- Grammar (Sentence Transformation)');
+  if(weak.length===0) weak.push('- None! Great job!');
+  const mBody = encodeURIComponent(`Hello Teacher,\n\nHere are my results for Mock Test ${n}.\n\nStudent Name: _____________________\n\n🏆 SCORE: ${tot} / 28 (${pct}%)\n\n📊 BREAKDOWN:\n- I. Phonetics: ${bd.I} / 4\n- II. Vocabulary: ${bd.II} / 5\n- III. Word Forms: ${bd.III} / 6\n- IV. Reading: ${bd.IV} / 6\n- V. Dictionary: ${bd.V} / 2\n- VI. Transformation: ${bd.VI} / 5\n\n📈 AREAS TO IMPROVE:\n${weak.join('\n')}\n\nThank you!`);
+  const mLink = `mailto:levandu1101@gmail.com?subject=Mock%20Test%20${n}%20Results&body=${mBody}`;
+
   document.getElementById(`mt${n}res`).innerHTML=`
     <div class="sb ${cl}"><div class="sbn">${tot} / 28</div><div class="sbl">${msg} — ${pct}%</div>
     <div class="sbd">
@@ -897,6 +1129,7 @@ function submitMT(n){
       <div class="sbi"><div class="lbl">VI. Transform</div><div class="val">${bd.VI}/5</div></div>
     </div></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px">
+      <button class="btn bg" onclick="window.location.href='${mLink}';this.textContent='✅ Email App Opened!'">📨 Email Results to Teacher</button>
       <button class="btn bp" onclick="nav('scores')">🏆 See All Scores</button>
       <button class="btn bo" onclick="nav('home')">🏠 Home</button>
     </div>`;
@@ -930,11 +1163,13 @@ function stopTmr(n){if(MT[n].tmr){clearInterval(MT[n].tmr);MT[n].tmr=null;}}
 function renderSC(){
   const rows=[
     {k:'pron',l:'🔊 Pronunciation Quiz',t:5},
-    {k:'gram',l:'📐 Grammar Practice',t:8},
-    {k:'prac',l:'✏️ Practice Part 1',t:10},
-    {k:'pracwf',l:'✏️ Practice Part 2 (Word Forms)',t:8},
+    {k:'psa',l:'📐 Present Simple: Apply',t:5},
+    {k:'gram',l:'📐 Sentence Transform Patterns',t:8},
+    {k:'prac',l:'✏️ Practice Part 1',t:15},
+    {k:'pracwf',l:'✏️ Practice Part 2 (Word Forms)',t:12},
     {k:'mt1',l:'📝 Mock Test 1',t:28},
     {k:'mt2',l:'📝 Mock Test 2',t:28},
+    {k:'mt3',l:'📝 Mock Test 3',t:28},
   ];
   let tc=0,tt=0;
   rows.forEach(r=>{if(SC[r.k].done){tc+=SC[r.k].c;tt+=SC[r.k].t;}});
@@ -951,6 +1186,7 @@ function renderSC(){
       <button class="btn bo" onclick="nav('home')">🏠 Home</button>
       ${!SC.mt1.done?`<button class="btn ba" onclick="nav('mt1')">📝 Mock Test 1</button>`:''}
       ${!SC.mt2.done?`<button class="btn ba" onclick="nav('mt2')">📝 Mock Test 2</button>`:''}
+      ${!SC.mt3.done?`<button class="btn ba" onclick="nav('mt3')">📝 Mock Test 3</button>`:''}
     </div>`;
 }
 function sbx(c,t,lbl){
@@ -968,8 +1204,9 @@ function upBadge(){
 // ============================================================
 window.onload=function(){
   buildV();buildPron();buildWF();buildDPG();buildGram();buildPrac();
-  buildMT(1,MT1);buildMT(2,MT2);
+  buildMT(1,MT1);buildMT(2,MT2);buildMT(3,MT3);
 };
 </script>
 </body>
 </html>
+
