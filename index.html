@@ -35,13 +35,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:12px}
 .fc{height:148px;perspective:700px;cursor:pointer}
 .fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.fc.flipped .fi,.body-teacher .fc .fi{transform:rotateY(180deg)}
+.fc.flipped .fi{transform:rotateY(180deg)}
 .ff,.fb{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.09)}
 .ff{background:linear-gradient(135deg,var(--blue),#3B82F6);color:#fff}
 .ff .em{font-size:1.7rem;margin-bottom:5px}.ff .wd{font-size:.95rem;font-weight:700}.ff .ip{font-size:.72rem;opacity:.8;margin-top:2px}
 .fb{background:#fff;border:2px solid var(--blue-l);transform:rotateY(180deg)}
-.fb .ps{font-size:.66rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:.8px}
-.fb .df{font-size:.78rem;color:#374151;margin:4px 0;font-weight:500;line-height:1.28}
+.fb .ps{font-size:.66rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:.8px;margin-bottom:3px}
+.fb .vn{font-size:.92rem;font-weight:700;color:var(--green);margin-bottom:5px}
+.fb .df{font-size:.78rem;color:#374151;margin-bottom:6px;font-weight:500;line-height:1.28}
 .fb .ex{font-size:.69rem;color:var(--gray);font-style:italic;line-height:1.28}
 /* SOUNDS */
 .sg{margin-bottom:16px}
@@ -203,9 +204,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- VOCABULARY -->
 <div class="sec" id="vocab">
-  <div class="sh"><h2>📚 Vocabulary</h2><p>Click a card to flip it. <strong>Teacher Mode</strong> reveals all cards at once.</p></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-    <button class="btn bp" onclick="flipAll(true)">↩️ Show All Answers</button>
+  <div class="sh"><h2>📚 Vocabulary</h2><p>Click a card to flip it. Turn on <strong>Teacher Mode</strong> to reveal cards one by one.</p></div>
+  <div style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="vTctrl">
+    <button class="btn bp" onclick="flipNext()">⏭️ Flip Next</button>
+    <button class="btn bg" onclick="flipAll(true)">↩️ Show All</button>
     <button class="btn bo" onclick="flipAll(false)">🔄 Reset Cards</button>
   </div>
   <div class="fgrid" id="vgrid"></div>
@@ -339,23 +341,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 // DATA
 // ============================================================
 const VOCAB=[
-  {w:'hobby',ip:'/ˈhɒbi/',p:'noun',e:'🎨',d:'an activity you enjoy in your free time',ex:'Gardening is her favourite hobby.'},
-  {w:'benefit',ip:'/ˈbenɪfɪt/',p:'noun',e:'✨',d:'an advantage or good result',ex:'One benefit of gardening is fresh air.'},
-  {w:'responsibility',ip:'/rɪˌspɒnsəˈbɪlɪti/',p:'noun',e:'📋',d:'a duty you must do; something you are in charge of',ex:"Feeding the fish is Minh's responsibility."},
-  {w:'patience',ip:'/ˈpeɪʃns/',p:'noun',e:'⏳',d:'the ability to wait calmly without getting angry',ex:'Making models requires patience.'},
-  {w:'valuable',ip:'/ˈvæljuəbl/',p:'adj',e:'💎',d:'worth a lot; very important to you',ex:'My coin collection is valuable to me.'},
-  {w:'insect',ip:'/ˈɪnsekt/',p:'noun',e:'🦋',d:'a small creature with 6 legs and usually wings',ex:'A butterfly is an insect.'},
-  {w:'collection',ip:'/kəˈlekʃn/',p:'noun',e:'📮',d:'a group of similar things gathered over time',ex:'He has a beautiful stamp collection.'},
-  {w:'dollhouse',ip:'/ˈdɒlhaʊs/',p:'noun',e:'🏠',d:'a small toy-sized house',ex:'She made a dollhouse from cardboard.'},
-  {w:'cardboard',ip:'/ˈkɑːdbɔːd/',p:'noun',e:'📦',d:'thick, stiff paper material for making things',ex:'We built a model from cardboard and glue.'},
-  {w:'model',ip:'/ˈmɒdl/',p:'noun',e:'✈️',d:'a small copy of something, often hand-made',ex:"The model plane hangs above Nam's desk."},
-  {w:'unusual',ip:'/ʌnˈjuːʒuəl/',p:'adj',e:'🤔',d:'not common; different from ordinary',ex:'Collecting insects is unusual.'},
-  {w:'popular',ip:'/ˈpɒpjələr/',p:'adj',e:'⭐',d:'liked or enjoyed by many people',ex:'Gardening is popular among adults.'},
-  {w:'creativity',ip:'/ˌkriːeɪˈtɪvɪti/',p:'noun',e:'💡',d:'the ability to make new and original things',ex:'Model making requires creativity.'},
-  {w:'reduce stress',ip:'—',p:'phrase',e:'🌿',d:'to make stress smaller or less; to relax',ex:'Gardening can reduce stress.'},
+  {w:'hobby',ip:'/ˈhɒbi/',p:'noun',e:'🎨',vn:'sở thích',d:'an activity you enjoy in your free time',ex:'Gardening is her favourite hobby.'},
+  {w:'benefit',ip:'/ˈbenɪfɪt/',p:'noun',e:'✨',vn:'lợi ích',d:'an advantage or good result',ex:'One benefit of gardening is fresh air.'},
+  {w:'responsibility',ip:'/rɪˌspɒnsəˈbɪlɪti/',p:'noun',e:'📋',vn:'trách nhiệm',d:'a duty you must do; something you are in charge of',ex:"Feeding the fish is Minh's responsibility."},
+  {w:'patience',ip:'/ˈpeɪʃns/',p:'noun',e:'⏳',vn:'sự kiên nhẫn',d:'the ability to wait calmly without getting angry',ex:'Making models requires patience.'},
+  {w:'valuable',ip:'/ˈvæljuəbl/',p:'adj',e:'💎',vn:'có giá trị, quý giá',d:'worth a lot; very important to you',ex:'My coin collection is valuable to me.'},
+  {w:'insect',ip:'/ˈɪnsekt/',p:'noun',e:'🦋',vn:'côn trùng',d:'a small creature with 6 legs and usually wings',ex:'A butterfly is an insect.'},
+  {w:'collection',ip:'/kəˈlekʃn/',p:'noun',e:'📮',vn:'bộ sưu tập',d:'a group of similar things gathered over time',ex:'He has a beautiful stamp collection.'},
+  {w:'dollhouse',ip:'/ˈdɒlhaʊs/',p:'noun',e:'🏠',vn:'nhà búp bê',d:'a small toy-sized house',ex:'She made a dollhouse from cardboard.'},
+  {w:'cardboard',ip:'/ˈkɑːdbɔːd/',p:'noun',e:'📦',vn:'bìa cứng, các-tông',d:'thick, stiff paper material for making things',ex:'We built a model from cardboard and glue.'},
+  {w:'model',ip:'/ˈmɒdl/',p:'noun',e:'✈️',vn:'mô hình',d:'a small copy of something, often hand-made',ex:"The model plane hangs above Nam's desk."},
+  {w:'unusual',ip:'/ʌnˈjuːʒuəl/',p:'adj',e:'🤔',vn:'khác thường, độc đáo',d:'not common; different from ordinary',ex:'Collecting insects is unusual.'},
+  {w:'popular',ip:'/ˈpɒpjələr/',p:'adj',e:'⭐',vn:'phổ biến, được yêu thích',d:'liked or enjoyed by many people',ex:'Gardening is popular among adults.'},
+  {w:'creativity',ip:'/ˌkriːeɪˈtɪvɪti/',p:'noun',e:'💡',vn:'sự sáng tạo',d:'the ability to make new and original things',ex:'Model making requires creativity.'},
+  {w:'reduce stress',ip:'—',p:'phrase',e:'🌿',vn:'giảm căng thẳng',d:'to make stress smaller or less; to relax',ex:'Gardening can reduce stress.'},
 ];
 const S1=[{w:'girl',u:'ir'},{w:'learn',u:'ear'},{w:'bird',u:'ir'},{w:'turn',u:'ur'},{w:'word',u:'or'},{w:'first',u:'ir'},{w:'earn',u:'ear'},{w:'third',u:'ir'},{w:'shirt',u:'ir'},{w:'earth',u:'ear'}];
-const S2=[{w:'away',u:'a'},{w:'about',u:'a'},{w:'contain',u:'ai'},{w:'alone',u:'a'},{w:'garden',u:'en'},{w:'apart',u:'a'}];
+const S2=[{w:'away',u:'a'},{w:'about',u:'a'},{w:'contain',u:'o'},{w:'alone',u:'a'},{w:'garden',u:'en'},{w:'apart',u:'a'}];
 const STD=[
   {w:'hobby',s:'1st',sh:'<b>HOB</b>-by'},{w:'garden',s:'1st',sh:'<b>GAR</b>-den'},{w:'insect',s:'1st',sh:'<b>IN</b>-sect'},
   {w:'model',s:'1st',sh:'<b>MOD</b>-el'},{w:'popular',s:'1st',sh:'<b>POP</b>-u-lar'},{w:'cardboard',s:'1st',sh:'<b>CARD</b>-board'},
@@ -387,13 +389,13 @@ const GPD=[
   {title:'Pattern 5 — Preposition + Gerund (interested in / keen on)',rule:'After a preposition → ALWAYS use verb+ing',rows:[['My favourite hobby is gardening.','I am interested in gardening.'],['Her hobby is collecting coins.','She is keen on collecting coins.']],warn:"⚠️ 'keen to collect' is WRONG. Always 'keen ON collecting'!"},
 ];
 const GPRAC=[
-  {q:"These stamps belong to Nam. → These stamps are",ac:["nam's"],h:"Nam's"},
-  {q:"He usually cycles to school. → He usually goes",ac:['cycling to school','cycling'],h:'cycling to school'},
+  {q:"These stamps belong to Nam. → These stamps are",ac:["nam's","nam's stamps"],h:"Nam's"},
+  {q:"He usually cycles to school. → He usually goes",ac:['cycling to school','cycling','to school by bike','to school by bicycle','by bike to school','by bicycle to school'],h:'cycling to school'},
   {q:"Collecting insects is unusual. → It is",ac:['unusual to collect insects'],h:'unusual to collect insects'},
-  {q:"Linh's hobby and mine are the same. → Linh and I share",ac:['the same hobby','a hobby'],h:'the same hobby'},
+  {q:"Linh's hobby and mine are the same. → Linh and I share",ac:['the same hobby','the same hobbies'],h:'the same hobby'},
   {q:"Mai prefers to make models. → Mai enjoys",ac:['making models'],h:'making models'},
   {q:"My favourite hobby is gardening. → I am interested",ac:['in gardening'],h:'in gardening'},
-  {q:"Long goes jogging each morning. → Long's habit is",ac:['jogging each morning'],h:'jogging each morning'},
+  {q:"Long goes jogging each morning. → Long's habit is",ac:['jogging each morning','jogging every morning','jogging'],h:'jogging each morning'},
   {q:"Her hobby is collecting coins. → She is keen",ac:['on collecting coins'],h:'on collecting coins'},
 ];
 const PRACQ=[
@@ -456,10 +458,10 @@ const MT1={
   Va:['make a model','working model'],
   Vq:['Our group will _____ of the solar house from cardboard.','The machine is not full-sized, but it is a _____ that really moves.'],
   VI:[
-    {q:"These stamps belong to Nam. → These stamps are",a:"Nam's",ac:["nam's"]},
-    {q:"He usually cycles to school. → He usually goes",a:'cycling to school',ac:['cycling to school','cycling']},
+    {q:"These stamps belong to Nam. → These stamps are",a:"Nam's",ac:["nam's","nam's stamps"]},
+    {q:"He usually cycles to school. → He usually goes",a:'cycling to school',ac:['cycling to school','cycling','to school by bike','to school by bicycle','by bike to school','by bicycle to school']},
     {q:"Collecting insects is unusual. → It is",a:'unusual to collect insects',ac:['unusual to collect insects']},
-    {q:"Linh's hobby and mine are the same. → Linh and I share",a:'the same hobby',ac:['the same hobby','a hobby']},
+    {q:"Linh's hobby and mine are the same. → Linh and I share",a:'the same hobby',ac:['the same hobby','the same hobbies']},
     {q:"Mai prefers to make models. → Mai enjoys",a:'making models',ac:['making models']},
   ]
 };
@@ -503,7 +505,7 @@ const MT2={
   VI:[
     {q:"Mai prefers to make models. → Mai enjoys",a:'making models',ac:['making models']},
     {q:"My favourite hobby is gardening. → I am interested",a:'in gardening',ac:['in gardening']},
-    {q:"Long goes jogging each morning. → Long's habit is",a:'jogging each morning',ac:['jogging each morning']},
+    {q:"Long goes jogging each morning. → Long's habit is",a:'jogging each morning',ac:['jogging each morning','jogging every morning','jogging']},
     {q:"Her hobby is collecting coins. → She is keen",a:'on collecting coins',ac:['on collecting coins']},
     {q:"Making models is enjoyable. → It is",a:'enjoyable to make models',ac:['enjoyable to make models']},
   ]
@@ -537,6 +539,8 @@ function toggleT(){
   const b=document.getElementById('tBtn');
   b.classList.toggle('on',teacher);
   b.textContent=teacher?'✅ Teacher Mode ON':'👨‍🏫 Teacher Mode';
+  const tc = document.getElementById('vTctrl');
+  if(tc) tc.style.display=teacher?'flex':'none';
 }
 // ============================================================
 // VOCABULARY
@@ -546,11 +550,15 @@ function buildV(){
     <div class="fc" onclick="this.classList.toggle('flipped')">
       <div class="fi">
         <div class="ff"><div class="em">${v.e}</div><div class="wd">${v.w}</div><div class="ip">${v.ip}</div></div>
-        <div class="fb"><div class="ps">${v.p}</div><div class="df">${v.d}</div><div class="ex">"${v.ex}"</div></div>
+        <div class="fb"><div class="ps">${v.p}</div><div class="vn">${v.vn}</div><div class="df">${v.d}</div><div class="ex">"${v.ex}"</div></div>
       </div>
     </div>`).join('');
 }
 function flipAll(show){document.querySelectorAll('.fc').forEach(c=>c.classList.toggle('flipped',show));}
+function flipNext(){
+  const cards = document.querySelectorAll('.fc:not(.flipped)');
+  if(cards.length > 0) cards[0].classList.add('flipped');
+}
 // ============================================================
 // PRONUNCIATION
 // ============================================================
