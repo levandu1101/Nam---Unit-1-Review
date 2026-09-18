@@ -277,6 +277,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <th class="go">🔵 GO + -ing<span class="rule">activities ending in -ing</span></th>
         <th class="play">🟣 PLAY + game/sport<span class="rule">games &amp; musical instruments</span></th>
         <th class="do">🟢 DO + activity<span class="rule">individual / non-competitive</span></th>
+        <th class="make">🟠 MAKE + object<span class="rule">create or build</span></th>
       </tr></thead>
       <tbody id="dpgb"></tbody>
     </table></div>
@@ -289,6 +290,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="zone z-go" id="zgo" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'go')"><div class="zh">🔵 GO</div><div class="zb" id="zgob"></div></div>
       <div class="zone z-play" id="zplay" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'play')"><div class="zh">🟣 PLAY</div><div class="zb" id="zplayb"></div></div>
       <div class="zone z-do" id="zdo" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'do')"><div class="zh">🟢 DO</div><div class="zb" id="zdob"></div></div>
+      <div class="zone z-make" id="zmake" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'make')"><div class="zh">🟠 MAKE</div><div class="zb" id="zmakeb"></div></div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn bg" onclick="checkDnD()">✅ Check Answers</button>
@@ -800,11 +802,11 @@ function checkWFP(){
 function resetWF(){document.getElementById('wfpa').innerHTML='';buildWF();}
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 // ============================================================
-// DO/PLAY/GO
+// DO/PLAY/GO/MAKE
 // ============================================================
 function buildDPG(){
   const max=Math.max(DPG.go.length,DPG.play.length,DPG.do.length,DPG.make.length);let r='';
-  for(let i=0;i<max;i++){r+=`<tr><td>${DPG.go[i]?'🔵 go <strong>'+DPG.go[i]+'</strong>':''}</td><td>${DPG.play[i]?'🟣 play <strong>'+DPG.play[i]+'</strong>':''}</td><td>${DPG.do[i]?'🟢 do <strong>'+DPG.do[i]+'</strong>':''}</td></tr>`;}
+  for(let i=0;i<max;i++){r+=`<tr><td>${DPG.go[i]?'🔵 go <strong>'+DPG.go[i]+'</strong>':''}</td><td>${DPG.play[i]?'🟣 play <strong>'+DPG.play[i]+'</strong>':''}</td><td>${DPG.do[i]?'🟢 do <strong>'+DPG.do[i]+'</strong>':''}</td><td>${DPG.make[i]?'🟠 make <strong>'+DPG.make[i]+'</strong>':''}</td></tr>`;}
   document.getElementById('dpgb').innerHTML=r;
   initDnD();
 }
@@ -1101,6 +1103,7 @@ function submitMT(n){
     if(ok){inp.classList.add('ok');fb.innerHTML=`<span class="fb2 ok">✅ Correct!</span>`;tot++;bd.VI++;}
     else{inp.classList.add('no');fb.innerHTML=`<span class="fb2 no">❌ <strong>${q.a}</strong> <span class="rl" onclick="nav('gram')">📚 Grammar</span></span>`;}
   });
+
   SC[`mt${n}`]={c:tot,t:28,done:true};
   document.getElementById(`mt${n}sb`).disabled=true;
   const pct=Math.round(tot/28*100);
@@ -1209,4 +1212,3 @@ window.onload=function(){
 </script>
 </body>
 </html>
-
