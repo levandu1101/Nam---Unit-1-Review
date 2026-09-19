@@ -59,13 +59,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .stbl td{padding:6px 8px;border-bottom:1px solid #E5E7EB}
 .stbl tr:nth-child(even) td{background:var(--gray-l)}
 /* WORD FORM TABLE */
-.wft{width:100%;border-collapse:collapse;font-size:.81rem;margin-top:9px}
-.wft th{background:var(--purple);color:#fff;padding:8px 6px;text-align:center}
+.wft{width:100%;border-collapse:collapse;margin:8px 0;font-size:.84rem}
+.wft th{background:var(--gray);color:#fff;padding:8px 6px;text-align:center}
 .wft td{padding:6px;border:1px solid #E5E7EB;text-align:center}
 .wft tr:nth-child(even) td{background:#FAFAFA}
 .wft .rt{font-weight:700;color:var(--purple);background:var(--purple-l)!important}
 .wfi{width:100%;padding:3px 5px;border:2px solid #D1D5DB;border-radius:5px;font-size:.79rem;text-align:center;font-family:inherit}
 .wfi.ok{border-color:var(--green);background:var(--green-l)}.wfi.no{border-color:var(--red);background:var(--red-l)}
+.w-n{color:var(--blue)}.w-v{color:var(--amber)}.w-j{color:var(--green)}.w-d{color:var(--purple)}
+.bg-n{background:var(--blue)!important;color:#fff!important}.bg-v{background:var(--amber)!important;color:#fff!important}.bg-j{background:var(--green)!important;color:#fff!important}.bg-d{background:var(--purple)!important;color:#fff!important}
+.suf{font-weight:800;color:inherit;text-decoration:underline;text-decoration-thickness:2px;background:rgba(255,255,0,0.3)}
+.z-noun .zh{background:var(--blue)}.z-verb .zh{background:var(--amber)}.z-adj .zh{background:var(--green)}.z-adv .zh{background:var(--purple)}
 /* MC */
 .qq{margin-bottom:20px}
 .qn{font-size:.72rem;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
@@ -258,34 +262,52 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- WORD FORMS -->
 <div class="sec" id="wf">
-  <div class="sh"><h2>🔤 Word Formation Masterclass</h2><p>Learn how to recognize syntactic clues, then apply your knowledge!</p></div>
+  <div class="sh"><h2>🔤 Word Formation Masterclass</h2><p>Learn how to recognize syntactic clues, sort by patterns, then apply your knowledge!</p></div>
   <div class="card">
     <div class="gtbs">
       <button class="wftb on" onclick="wTab('wf_rules', this)">1. The Rules (Clues)</button>
-      <button class="wftb" onclick="wTab('wf_table', this)">2. Word Families</button>
-      <button class="wftb" onclick="wTab('wf_prac', this)">3. Guided Practice</button>
+      <button class="wftb" onclick="wTab('wf_sort', this)">2. Suffix Sorter</button>
+      <button class="wftb" onclick="wTab('wf_table', this)">3. Word Families</button>
+      <button class="wftb" onclick="wTab('wf_prac', this)">4. Guided Practice</button>
     </div>
 
     <!-- 1. Rules -->
     <div id="wf_rules" class="wfpan on">
-      <h4 style="margin-bottom:8px;color:var(--blue)">📌 1. Nouns (Danh từ - N)</h4>
+      <h4 style="margin-bottom:8px" class="w-n">🟦 1. Nouns (Danh từ - N)</h4>
       <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> After articles (a/an/the), possessives (my/his/Minh's), prepositions (in/on/of), or adjectives.</p>
-      <div class="al al-i" style="margin-bottom:14px"><strong>Examples:</strong> a <u>collection</u>, his <u>creativity</u>, interested in <u>gardening</u>, a beautiful <u>model</u>.<br><strong>Common suffixes:</strong> <em>-tion, -ity, -er, -ness, -ment</em></div>
+      <div class="al al-i" style="margin-bottom:14px;border-left:4px solid var(--blue)"><strong>Examples:</strong> a collect<span class="suf">ion</span>, his creativ<span class="suf">ity</span>, interested in garden<span class="suf">ing</span>, a beautiful model.<br><strong>Common suffixes:</strong> <em>-tion, -ity, -er, -ness, -ment</em></div>
 
-      <h4 style="margin-bottom:8px;color:var(--blue)">📌 2. Verbs (Động từ - V)</h4>
+      <h4 style="margin-bottom:8px" class="w-v">🟧 2. Verbs (Động từ - V)</h4>
       <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> After a subject, after "to" (to-infinitive), or modals (can/will/should).</p>
-      <div class="al al-w" style="margin-bottom:14px"><strong>Examples:</strong> He <u>collects</u>, want to <u>create</u>, can <u>benefit</u>.<br><strong>Common suffixes:</strong> <em>-ate, -en, -ize</em></div>
+      <div class="al" style="background:var(--amber-l);border-color:var(--amber);color:#92400E;margin-bottom:14px;border-left:4px solid var(--amber)"><strong>Examples:</strong> He collects, want to create, can benefit.<br><strong>Common suffixes:</strong> <em>-ate, -en, -ize</em></div>
 
-      <h4 style="margin-bottom:8px;color:var(--blue)">📌 3. Adjectives (Tính từ - Adj)</h4>
+      <h4 style="margin-bottom:8px" class="w-j">🟩 3. Adjectives (Tính từ - Adj)</h4>
       <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> Before a noun, or after "to be" (is/are) and linking verbs (look/feel).</p>
-      <div class="al al-i" style="background:var(--purple-l);border-color:var(--purple);color:#4C1D95;margin-bottom:14px"><strong>Examples:</strong> an <u>unusual</u> hobby, is very <u>popular</u>, looks <u>patient</u>.<br><strong>Common suffixes:</strong> <em>-al, -ive, -able, -ent, -ful</em></div>
+      <div class="al" style="background:var(--green-l);border-color:var(--green);color:#065F46;margin-bottom:14px;border-left:4px solid var(--green)"><strong>Examples:</strong> an unusu<span class="suf">al</span> hobby, is very popular, looks pati<span class="suf">ent</span>.<br><strong>Common suffixes:</strong> <em>-al, -ive, -able, -ent, -ful</em></div>
 
-      <h4 style="margin-bottom:8px;color:var(--blue)">📌 4. Adverbs (Trạng từ - Adv)</h4>
+      <h4 style="margin-bottom:8px" class="w-d">🟪 4. Adverbs (Trạng từ - Adv)</h4>
       <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> After an action verb to describe <em>how</em> the action is done.</p>
-      <div class="al al-w" style="background:var(--green-l);border-color:var(--green);color:var(--green);margin-bottom:8px"><strong>Examples:</strong> waited <u>patiently</u>, designed <u>creatively</u>.<br><strong>Common suffixes:</strong> <em>-ly</em></div>
+      <div class="al" style="background:var(--purple-l);border-color:var(--purple);color:#4C1D95;margin-bottom:8px;border-left:4px solid var(--purple)"><strong>Examples:</strong> waited patient<span class="suf">ly</span>, designed creative<span class="suf">ly</span>.<br><strong>Common suffixes:</strong> <em>-ly</em></div>
     </div>
 
-    <!-- 2. Table & Practice Mode -->
+    <!-- 2. Suffix Sorter -->
+    <div id="wf_sort" class="wfpan">
+      <p style="margin-bottom:10px;font-size:.86rem;color:var(--gray)">Drag and drop the words into the correct category based on their suffixes!</p>
+      <div class="src-area" id="wfDnDSrc" ondragover="ev.preventDefault&&ev.preventDefault()" ondrop="dropBackWF(event)"></div>
+      <div class="zones" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+        <div class="zone z-noun" id="znoun" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'noun')"><div class="zh">🟦 Noun</div><div class="zb" id="znounb"></div></div>
+        <div class="zone z-verb" id="zverb" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'verb')"><div class="zh">🟧 Verb</div><div class="zb" id="zverbb"></div></div>
+        <div class="zone z-adj" id="zadj" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'adj')"><div class="zh">🟩 Adjective</div><div class="zb" id="zadjb"></div></div>
+        <div class="zone z-adv" id="zadv" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,'adv')"><div class="zh">🟪 Adverb</div><div class="zb" id="zadvb"></div></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn bg" onclick="checkWFSort()">✅ Check Answers</button>
+        <button class="btn bo" onclick="initWFSort()">🔄 Reset</button>
+      </div>
+      <div id="wfdndres" style="margin-top:11px"></div>
+    </div>
+
+    <!-- 3. Table & Practice Mode -->
     <div id="wf_table" class="wfpan">
       <p style="margin-bottom:10px;font-size:.86rem;color:var(--gray)">Study the full table, then click <strong>Practice Mode</strong> to fill in randomly blanked cells!</p>
       <div style="overflow-x:auto"><table class="wft" id="wftbl"></table></div>
@@ -296,7 +318,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div id="wfpa"></div>
     </div>
 
-    <!-- 3. Guided Practice -->
+    <!-- 4. Guided Practice -->
     <div id="wf_prac" class="wfpan">
       <p style="margin-bottom:12px;font-size:.86rem;color:var(--gray)">Read the sentence and identify what <strong>Part of Speech</strong> is missing based on the clues!</p>
       <div id="wfg_c"></div>
@@ -497,15 +519,15 @@ const STD=[
   {w:'maturity',s:'2nd',sh:'ma-<b>TUR</b>-i-ty'},{w:'creativity',s:'3rd',sh:'cre-a-<b>TIV</b>-i-ty'},
 ];
 const WFD=[
-  {r:'BENEFIT',v:'benefit',p:'—',a:'benefit',j:'beneficial',d:'beneficially'},
-  {r:'PATIENT',v:'—',p:'—',a:'patience',j:'patient',d:'patiently'},
-  {r:'POPULAR',v:'—',p:'—',a:'popularity',j:'popular',d:'popularly'},
-  {r:'RESPONSIBLE',v:'—',p:'—',a:'responsibility',j:'responsible',d:'responsibly'},
-  {r:'COLLECT',v:'collect',p:'collector',a:'collection',j:'—',d:'—'},
-  {r:'CREATE',v:'create',p:'creator',a:'creativity',j:'creative',d:'creatively'},
-  {r:'INTEREST',v:'interest',p:'—',a:'interest',j:'interesting / interested',d:'interestingly'},
-  {r:'ENJOY',v:'enjoy',p:'—',a:'enjoyment',j:'enjoyable',d:'enjoyably'},
-  {r:'GARDEN',v:'garden',p:'gardener',a:'gardening',j:'—',d:'—'},
+  {r:'BENEFIT',v:'benefit',p:'—',a:'benefit',j:'benefici<span class="suf">al</span>',d:'benefici<span class="suf">ally</span>'},
+  {r:'PATIENT',v:'—',p:'—',a:'pati<span class="suf">ence</span>',j:'pati<span class="suf">ent</span>',d:'patient<span class="suf">ly</span>'},
+  {r:'POPULAR',v:'—',p:'—',a:'popular<span class="suf">ity</span>',j:'popular',d:'popular<span class="suf">ly</span>'},
+  {r:'RESPONSIBLE',v:'—',p:'—',a:'responsibil<span class="suf">ity</span>',j:'responsib<span class="suf">le</span>',d:'responsib<span class="suf">ly</span>'},
+  {r:'COLLECT',v:'collect',p:'collect<span class="suf">or</span>',a:'collect<span class="suf">ion</span>',j:'—',d:'—'},
+  {r:'CREATE',v:'create',p:'creat<span class="suf">or</span>',a:'creativ<span class="suf">ity</span>',j:'creat<span class="suf">ive</span>',d:'creative<span class="suf">ly</span>'},
+  {r:'INTEREST',v:'interest',p:'—',a:'interest',j:'interest<span class="suf">ing</span> / interest<span class="suf">ed</span>',d:'interest<span class="suf">ingly</span>'},
+  {r:'ENJOY',v:'enjoy',p:'—',a:'enjoy<span class="suf">ment</span>',j:'enjoy<span class="suf">able</span>',d:'enjoyab<span class="suf">ly</span>'},
+  {r:'GARDEN',v:'garden',p:'garden<span class="suf">er</span>',a:'garden<span class="suf">ing</span>',j:'—',d:'—'},
 ];
 const WFG=[
   {q:"My grandfather is an experienced _____.", r:"GARDEN", a:"Noun", cl:"The article <b>'an'</b> + adjective <b>'experienced'</b> means we need a Person Noun.", ans:"gardener"},
@@ -818,18 +840,22 @@ function checkPQ(){
 // ============================================================
 function buildWF(){
   const cols=['r','v','p','a','j','d'];
-  const heads=['Root Word','Verb','Person Noun','Action Noun','Adjective','Adverb'];
+  const heads=['Root Word','<span class="w-v">Verb</span>','<span class="w-n">Person Noun</span>','<span class="w-n">Action Noun</span>','<span class="w-j">Adjective</span>','<span class="w-d">Adverb</span>'];
   document.getElementById('wftbl').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${
     WFD.map(d=>`<tr>${cols.map(c=>`<td class="${c==='r'?'rt':''}">${d[c]}</td>`).join('')}</tr>`).join('')
   }</tbody>`;
 }
 function startWFP(){
   const cols=['v','p','a','j','d'];
-  let h=`<div class="card"><h3>✏️ Word Form Fill-in</h3><p style="margin-bottom:11px;font-size:.83rem;color:var(--gray)">Fill in the blanks (case-insensitive).</p><div style="overflow-x:auto"><table class="wft" id="wfpt"><thead><tr><th>Root</th>${['Verb','Person Noun','Action Noun','Adjective','Adverb'].map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>`;
+  const pHeads=[{l:'Verb',c:'bg-v'},{l:'Person Noun',c:'bg-n'},{l:'Action Noun',c:'bg-n'},{l:'Adjective',c:'bg-j'},{l:'Adverb',c:'bg-d'}];
+  let h=`<div class="card"><h3>✏️ Word Form Fill-in</h3><p style="margin-bottom:11px;font-size:.83rem;color:var(--gray)">Fill in the blanks (case-insensitive).</p><div style="overflow-x:auto"><table class="wft" id="wfpt"><thead><tr><th>Root</th>${pHeads.map(x=>`<th class="${x.c}">${x.l}</th>`).join('')}</tr></thead><tbody>`;
   WFD.forEach((d,ri)=>{
     const av=cols.filter(c=>d[c]!=='—');const bl=shuf([...av]).slice(0,2);
     h+=`<tr><td class="rt">${d.r}</td>`;
-    cols.forEach(c=>{h+=bl.includes(c)?`<td><input type="text" class="wfi" id="wfi${ri}${c}" placeholder="?" data-ans="${d[c].split(' /')[0]}"></td>`:`<td>${d[c]}</td>`;});
+    cols.forEach(c=>{
+      const cleanAns = d[c].replace(/<[^>]+>/g, '').split(' /')[0];
+      h+=bl.includes(c)?`<td><input type="text" class="wfi" id="wfi${ri}${c}" placeholder="?" data-ans="${cleanAns}"></td>`:`<td>${d[c]}</td>`;
+    });
     h+='</tr>';
   });
   h+=`</tbody></table></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:11px"><button class="btn bg" onclick="checkWFP()">✅ Check</button><button class="btn bo" onclick="resetWF()">🔄 Reset</button></div><div id="wfpsc" style="margin-top:11px"></div></div>`;
@@ -846,6 +872,36 @@ function checkWFP(){
 }
 function resetWF(){document.getElementById('wfpa').innerHTML='';buildWF();}
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const WFS = {
+  noun: ['collection','creativity','patience','enjoyment','collector','gardener'],
+  verb: ['benefit','create','enjoy','collect','garden'],
+  adj:  ['popular','creative','patient','valuable','beneficial'],
+  adv:  ['responsibly','patiently','creatively','interestingly']
+};
+function getWFcat(a){return WFS.noun.includes(a)?'noun':WFS.verb.includes(a)?'verb':WFS.adj.includes(a)?'adj':'adv';}
+function initWFSort(){
+  ['noun','verb','adj','adv'].forEach(z=>document.getElementById(`z${z}b`).innerHTML='');
+  const words = shuf([...WFS.noun, ...WFS.verb, ...WFS.adj, ...WFS.adv]).slice(0, 16);
+  document.getElementById('wfDnDSrc').innerHTML=words.map(a=>`<div class="tile" draggable="true" data-act="${a}" data-cat="${getWFcat(a)}" ondragstart="dS(event)" ondragend="dE(event)">${a}</div>`).join('');
+  document.getElementById('wfdndres').innerHTML='';
+}
+function checkWFSort(){
+  let c=0,t=0;
+  ['noun','verb','adj','adv'].forEach(z=>{
+    document.querySelectorAll(`#z${z}b .tile`).forEach(tile=>{
+      t++;tile.draggable=false;
+      tile.dataset.cat===z?(tile.classList.add('ok-p'),c++):(tile.classList.add('no-p'),tile.title='Should be: '+tile.dataset.cat);
+    });
+  });
+  document.getElementById('wfdndres').innerHTML=sbx(c,t,'Suffix Sorter');
+}
+function dropBackWF(e){
+  e.preventDefault();
+  const a=e.dataTransfer.getData('text');
+  const tile=document.querySelector(`.tile[data-act="${a}"]`);
+  if(tile)document.getElementById('wfDnDSrc').appendChild(tile);
+  document.querySelectorAll('.zone').forEach(z=>z.classList.remove('over'));
+}
 function wTab(id, btn){
   document.querySelectorAll('.wfpan').forEach(e=>e.classList.remove('on'));
   document.querySelectorAll('.wftb').forEach(e=>e.classList.remove('on'));
@@ -859,9 +915,9 @@ function buildWFG(){
       <div class="qt">${d.q} (Root: <strong>${d.r}</strong>)</div>
       <div style="font-size:.82rem;margin-bottom:8px;color:var(--gray)">What word form fits in the blank?</div>
       <div class="opts" style="display:flex;flex-direction:row;gap:8px;flex-wrap:wrap">
-        ${['Noun','Verb','Adjective','Adverb'].map(o=>`<button class="ob" style="padding:6px 12px;border-radius:20px" onclick="selWFG(this, ${i}, '${o}', '${d.a}')">${o}</button>`).join('')}
+        ${[{l:'Noun',c:'w-n'},{l:'Verb',c:'w-v'},{l:'Adjective',c:'w-j'},{l:'Adverb',c:'w-d'}].map(o=>`<button class="ob" style="padding:6px 12px;border-radius:20px;border:2px solid currentColor;background:#fff" onclick="selWFG(this, ${i}, '${o.l}', '${d.a}')"><span class="${o.c}" style="font-weight:700">${o.l}</span></button>`).join('')}
       </div>
-      <div id="wfgfb${i}" style="display:none;margin-top:10px;padding:10px;background:var(--blue-l);border-radius:8px;font-size:.86rem"></div>
+      <div id="wfgfb${i}" style="display:none;margin-top:10px;padding:10px;background:var(--gray-l);border-radius:8px;font-size:.86rem"></div>
     </div>
   `).join('');
 }
@@ -1291,7 +1347,7 @@ function upBadge(){
 // INIT
 // ============================================================
 window.onload=function(){
-  buildV();buildPron();buildWF();buildWFG();buildDPG();buildGram();buildPrac();
+  buildV();buildPron();buildWF();buildWFG();initWFSort();buildDPG();buildGram();buildPrac();
   buildMT(1,MT1);buildMT(2,MT2);buildMT(3,MT3);
 };
 </script>
