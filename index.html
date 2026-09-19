@@ -116,12 +116,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sbi{background:rgba(255,255,255,.18);border-radius:7px;padding:9px;text-align:center}
 .sbi .lbl{font-size:.69rem;opacity:.85}.sbi .val{font-size:1.2rem;font-weight:700}
 .rl{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-size:.76rem;font-weight:600;cursor:pointer;text-decoration:underline;margin-left:5px}
-/* GRAMMAR TABS (NEW) */
+/* TABS */
 .gtbs{display:flex;gap:4px;border-bottom:2px solid #E5E7EB;margin-bottom:12px;overflow-x:auto}
-.gtb{padding:8px 12px;border:none;background:none;font-weight:600;font-size:.85rem;color:var(--gray);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
-.gtb:hover{color:var(--blue)}
-.gtb.on{color:var(--blue);border-bottom-color:var(--blue)}
-.gpan{display:none}.gpan.on{display:block;animation:fadeUp .3s}
+.gtb, .wftb{padding:8px 12px;border:none;background:none;font-weight:600;font-size:.85rem;color:var(--gray);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.gtb:hover, .wftb:hover{color:var(--blue)}
+.gtb.on, .wftb.on{color:var(--blue);border-bottom-color:var(--blue)}
+.gpan, .wfpan{display:none}.gpan.on, .wfpan.on{display:block;animation:fadeUp .3s}
 .ebtn{background:#fff;border:1px solid #D1D5DB;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;margin:2px;font-size:.9rem;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:all .15s}
 .ebtn:hover:not(:disabled){background:var(--blue-l);border-color:var(--blue)}
 .ebtn.bad{background:var(--red-l);border-color:var(--red);color:var(--red);text-decoration:line-through;cursor:default}
@@ -258,13 +258,50 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- WORD FORMS -->
 <div class="sec" id="wf">
-  <div class="sh"><h2>🔤 Word Formation</h2><p>Study the full table, then click <strong>Practice Mode</strong> to fill in randomly blanked cells!</p></div>
-  <div class="card"><div style="overflow-x:auto"><table class="wft" id="wftbl"></table></div></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-    <button class="btn bp" onclick="startWFP()">✏️ Practice Mode</button>
-    <button class="btn bo" onclick="resetWF()">🔄 Reset Table</button>
+  <div class="sh"><h2>🔤 Word Formation Masterclass</h2><p>Learn how to recognize syntactic clues, then apply your knowledge!</p></div>
+  <div class="card">
+    <div class="gtbs">
+      <button class="wftb on" onclick="wTab('wf_rules', this)">1. The Rules (Clues)</button>
+      <button class="wftb" onclick="wTab('wf_table', this)">2. Word Families</button>
+      <button class="wftb" onclick="wTab('wf_prac', this)">3. Guided Practice</button>
+    </div>
+
+    <!-- 1. Rules -->
+    <div id="wf_rules" class="wfpan on">
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 1. Nouns (Danh từ - N)</h4>
+      <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> After articles (a/an/the), possessives (my/his/Minh's), prepositions (in/on/of), or adjectives.</p>
+      <div class="al al-i" style="margin-bottom:14px"><strong>Examples:</strong> a <u>collection</u>, his <u>creativity</u>, interested in <u>gardening</u>, a beautiful <u>model</u>.<br><strong>Common suffixes:</strong> <em>-tion, -ity, -er, -ness, -ment</em></div>
+
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 2. Verbs (Động từ - V)</h4>
+      <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> After a subject, after "to" (to-infinitive), or modals (can/will/should).</p>
+      <div class="al al-w" style="margin-bottom:14px"><strong>Examples:</strong> He <u>collects</u>, want to <u>create</u>, can <u>benefit</u>.<br><strong>Common suffixes:</strong> <em>-ate, -en, -ize</em></div>
+
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 3. Adjectives (Tính từ - Adj)</h4>
+      <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> Before a noun, or after "to be" (is/are) and linking verbs (look/feel).</p>
+      <div class="al al-i" style="background:var(--purple-l);border-color:var(--purple);color:#4C1D95;margin-bottom:14px"><strong>Examples:</strong> an <u>unusual</u> hobby, is very <u>popular</u>, looks <u>patient</u>.<br><strong>Common suffixes:</strong> <em>-al, -ive, -able, -ent, -ful</em></div>
+
+      <h4 style="margin-bottom:8px;color:var(--blue)">📌 4. Adverbs (Trạng từ - Adv)</h4>
+      <p style="font-size:.86rem;margin-bottom:6px;color:var(--gray)"><strong>Where?</strong> After an action verb to describe <em>how</em> the action is done.</p>
+      <div class="al al-w" style="background:var(--green-l);border-color:var(--green);color:var(--green);margin-bottom:8px"><strong>Examples:</strong> waited <u>patiently</u>, designed <u>creatively</u>.<br><strong>Common suffixes:</strong> <em>-ly</em></div>
+    </div>
+
+    <!-- 2. Table & Practice Mode -->
+    <div id="wf_table" class="wfpan">
+      <p style="margin-bottom:10px;font-size:.86rem;color:var(--gray)">Study the full table, then click <strong>Practice Mode</strong> to fill in randomly blanked cells!</p>
+      <div style="overflow-x:auto"><table class="wft" id="wftbl"></table></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0">
+        <button class="btn bp" onclick="startWFP()">✏️ Practice Mode</button>
+        <button class="btn bo" onclick="resetWF()">🔄 Reset Table</button>
+      </div>
+      <div id="wfpa"></div>
+    </div>
+
+    <!-- 3. Guided Practice -->
+    <div id="wf_prac" class="wfpan">
+      <p style="margin-bottom:12px;font-size:.86rem;color:var(--gray)">Read the sentence and identify what <strong>Part of Speech</strong> is missing based on the clues!</p>
+      <div id="wfg_c"></div>
+    </div>
   </div>
-  <div id="wfpa"></div>
 </div>
 
 <!-- DO/PLAY/GO -->
@@ -469,6 +506,14 @@ const WFD=[
   {r:'INTEREST',v:'interest',p:'—',a:'interest',j:'interesting / interested',d:'interestingly'},
   {r:'ENJOY',v:'enjoy',p:'—',a:'enjoyment',j:'enjoyable',d:'enjoyably'},
   {r:'GARDEN',v:'garden',p:'gardener',a:'gardening',j:'—',d:'—'},
+];
+const WFG=[
+  {q:"My grandfather is an experienced _____.", r:"GARDEN", a:"Noun", cl:"The article <b>'an'</b> + adjective <b>'experienced'</b> means we need a Person Noun.", ans:"gardener"},
+  {q:"Gardening is highly _____ for both body and mind.", r:"BENEFIT", a:"Adjective", cl:"The verb <b>'is'</b> + adverb <b>'highly'</b> means we need an Adjective to describe gardening.", ans:"beneficial"},
+  {q:"Lan waited _____ for the glue to dry.", r:"PATIENT", a:"Adverb", cl:"The action verb <b>'waited'</b> needs an Adverb to describe <i>how</i> she waited.", ans:"patiently"},
+  {q:"He has an impressive stamp _____.", r:"COLLECT", a:"Noun", cl:"The article <b>'an'</b> + adjective <b>'impressive'</b> means we need a Thing Noun.", ans:"collection"},
+  {q:"She showed great _____ in her model design.", r:"CREATE", a:"Noun", cl:"The adjective <b>'great'</b> means we need a Noun after it.", ans:"creativity"},
+  {q:"This hobby has grown in _____ among teenagers.", r:"POPULAR", a:"Noun", cl:"The preposition <b>'in'</b> must be followed by a Noun.", ans:"popularity"}
 ];
 const DPG={
   go:['jogging','cycling','swimming','hiking','camping','fishing'],
@@ -801,6 +846,46 @@ function checkWFP(){
 }
 function resetWF(){document.getElementById('wfpa').innerHTML='';buildWF();}
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function wTab(id, btn){
+  document.querySelectorAll('.wfpan').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.wftb').forEach(e=>e.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+function buildWFG(){
+  document.getElementById('wfg_c').innerHTML = WFG.map((d,i)=>`
+    <div class="qq" id="wfgq${i}">
+      <div class="qn">Question ${i+1}</div>
+      <div class="qt">${d.q} (Root: <strong>${d.r}</strong>)</div>
+      <div style="font-size:.82rem;margin-bottom:8px;color:var(--gray)">What word form fits in the blank?</div>
+      <div class="opts" style="display:flex;flex-direction:row;gap:8px;flex-wrap:wrap">
+        ${['Noun','Verb','Adjective','Adverb'].map(o=>`<button class="ob" style="padding:6px 12px;border-radius:20px" onclick="selWFG(this, ${i}, '${o}', '${d.a}')">${o}</button>`).join('')}
+      </div>
+      <div id="wfgfb${i}" style="display:none;margin-top:10px;padding:10px;background:var(--blue-l);border-radius:8px;font-size:.86rem"></div>
+    </div>
+  `).join('');
+}
+function selWFG(btn, i, sel, ans){
+  const d = WFG[i];
+  const fb = document.getElementById(`wfgfb${i}`);
+  document.querySelectorAll(`#wfgq${i} .ob`).forEach(b=>{b.disabled=true;b.style.borderColor='';b.style.background='';});
+  
+  if(sel === ans){
+    btn.classList.add('ok');
+    fb.style.display = 'block';
+    fb.style.background = 'var(--green-l)';
+    fb.style.border = '1px solid var(--green)';
+    fb.innerHTML = `✅ <strong>Correct! It is a ${ans}.</strong><br><span style="color:#065F46">${d.cl}</span><br><br>The correct word is: <strong>${d.ans}</strong>`;
+  } else {
+    btn.classList.add('no');
+    const corBtn = Array.from(document.querySelectorAll(`#wfgq${i} .ob`)).find(b=>b.textContent===ans);
+    if(corBtn) corBtn.classList.add('sok');
+    fb.style.display = 'block';
+    fb.style.background = 'var(--red-l)';
+    fb.style.border = '1px solid var(--red)';
+    fb.innerHTML = `❌ <strong>Incorrect. We need a ${ans}.</strong><br><span style="color:#991B1B">${d.cl}</span><br><br>The correct word is: <strong>${d.ans}</strong>`;
+  }
+}
 // ============================================================
 // DO/PLAY/GO/MAKE
 // ============================================================
@@ -1206,7 +1291,7 @@ function upBadge(){
 // INIT
 // ============================================================
 window.onload=function(){
-  buildV();buildPron();buildWF();buildDPG();buildGram();buildPrac();
+  buildV();buildPron();buildWF();buildWFG();buildDPG();buildGram();buildPrac();
   buildMT(1,MT1);buildMT(2,MT2);buildMT(3,MT3);
 };
 </script>
